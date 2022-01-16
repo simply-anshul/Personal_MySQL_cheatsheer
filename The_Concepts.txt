@@ -1,5 +1,5 @@
 # **Types of Keys** 
-##Super Key:
+## Super Key:
     Super set of the keys
 ##Candidate Key:
     A key representing the field in the table that can uniquely identify the table. Can be used as a Primary Key
