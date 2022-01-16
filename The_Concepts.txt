@@ -1,44 +1,247 @@
-# **Types of Keys** 
-## Super Key:
+* Types of Keys 
+1. Super Key:
     Super set of the keys
-##Candidate Key:
+2. Candidate Key:
     A key representing the field in the table that can uniquely identify the table. Can be used as a Primary Key
-##Primary Key:
+3. Primary Key:
     A key representing the field in the table that can identify the the table uniquely. Only one candidate key can be Primary Key. Cannot be null.
-##Alternate Key:
+4. Alternate Key:
     A key that is a candidate key but not primary key.
-##Composite/Compound Key:
+5. Composite/Compound Key:
     Combination of one or more fields of a table. 
-##Unique Key:
+6. Unique Key:
     It is like Primary key but it can have one null value.
-#Foreign Key:
+7. Foreign Key:
     Foreign Key is the primary key of the other table.
 
 (In DBMS Primary Key, Foreign Key and Unique Key are useful. Other keys are the concepts of RDBMS).
 
 ***************************..............................***************************
 
-#Normalization:
+* Normalization:
 Converting the database design into the standard form.
 There are 5 Normal Forms.
-##1NF
+1. 1NF
     Each set of column uniquely identify the row.
-##2NF
+2. 2NF
     1NF +  all non-key attributes are fully functional dependent on the primary key
-##3NF
+3. 3NF
     2NF + no transitive relation (A -> B -> C -> therefore A->C should be eliminated)
-##BCNF
+4. BCNF
     BCNF is the advance version of 3NF. It is stricter than 3NF. A table is in BCNF if every functional dependency X → Y, X is the super key of the table. For BCNF, the table should be in 3NF, and for every FD, LHS is super key.
-##4NF
+5. 4NF
     A relation will be in 4NF if it is in Boyce Codd normal form and has no multi-valued dependency. For a dependency A → B, if for a single value of A, multiple values of B exists, then the relation will be a multi-valued dependency.
-##5NF
+6. 5NF
     A relation is in 5NF if it is in 4NF and not contains any join dependency and joining should be lossless. 5NF is satisfied when all the tables are broken into as many tables as possible in order to avoid redundancy. 5NF is also known as Project-join normal form (PJ/NF).
 
 ***************************..............................***************************
 
-Now we are going to talk about MySQL queries and commands:
+* Now we are going to talk about MySQL queries and commands:
+(The commands in MySQL are not case sensitive. However, the database name or tables name are case sensitive so be careful with that. I have Uppercased the commands so as to differentiate between commands and other things)
 
+1. CREATE DATABASE database_name;
+    This will create a database for you. You can enter any name instead of "database_name" but don't be redundant.
 
+2. DROP DATABASE database_name;
+    This will delete the database.
 
+3. USE database_name:
+    This will enable to use and play with the contents of your database. If the database does not exist, it will create will created for you.
 
+4. SHOW DATABASE();
+    This will show you the database you are working on right now. 
 
+5. CREATE TABLE table_name(
+        variable_name datatype,
+        variable_name datatype,
+        variable_name datatype,
+        ..
+        ..);
+    This will create the table in your database.
+Example:
+    CREATE TABLE cats(
+        name VARCHAR(20)
+    );
+
+6. SHOW COLUMNS FROM table_name;
+    This will display the column names and their datatypes along with other attributes.
+
+7. DROP TABLE table_name;
+    This will delete the table completely.
+
+8. SHOW TABLES;
+    This will display all the tables from the database.
+
+9. INSERT INTO table_name (column,column,....)
+    VALUES(... , ... , ...);
+    This command will insert data into your table. After table_name, specify the columns (that you created with CREATE TABLE command). The enter the content using VALUES in the same order as given after the INTO. You can also insert multiple data using multiple ().
+
+10. DEFAULT: This is written while creating the table to insert    
+Example: name VARCHAR(20) DEFAULT "unnamed"
+
+11. NOT NULL: To be written during creating table that specify that this field cannot be NULL.
+
+12. PRIMARY KEY: Used to specify the Primary Key from the table. Can be written in two ways.
+Example: id INT PRIMARY KEY; 
+or 
+PRIMARY KEY(id)
+
+13. AUTO_INCREMENT: It is used to auto increment the primary key. The primary key should be declared as INT.
+
+14. SELECT * FROM table_name;
+    * represents that all fields should be printed/selected. Instead of * you can explicitely define the field names as well.
+
+15. WHERE: Written along will the SELECT when we want to enforce certain condition on the table.
+Example: SELECT * from cats WHERE name="kitty";
+
+16. AS: This is used as Alias to the field.
+Example: SELECT id AS CAT_ID FROM cats;
+
+16. UPDATE table_name SET _______ WHERE _______;
+    This is an update query. After set we define the change we want and after WHERE we define the condition where we want the change.
+
+17. DELETE FROM table_name WHERE ______;
+    Delete with a specific condition.
+
+18. DELETE FROM table_name;
+    This will delete all the contents of the table but will not wipe the table. The table will be an empty set. If we want to delete the table, we should use DROP command.
+
+19. CONCAT(field1, field2, ......)
+    Concatinate two or more strings.
+
+20. CONCAT_WS(seperator, field1, field2,....)
+    This will Concatinate with seperator. This seperator will exists between the two fields.    
+
+21. SUBSTRING(string/field, start, length);
+    Returns the SUBSTRING from start to length.
+
+22. REPLACE(string/field,old,new)
+    Replace old value with new value in the string.
+
+23. REVERSE(string)
+    Reverse the string.
+
+24. CHAR_LENGTH(string)
+    Gives the string length
+
+25.UPPER(string)
+    Uppercase the string.
+
+26. LOWER(string)
+    Lowercase the string.
+
+27. DISTINCT
+    Look for only distinct values.
+Example:
+SELETCT DISTINCT ____ FROM table_name;
+
+28. ORDER_BY ____
+    Specify the field name by which we have to order. By dafault it is asceding order (ASC). For desending order, we need to specify DESC.
+
+29. LIMIT _
+    Limit the output by the number stated after
+Example:
+SELECT * FROM cats ORDER_BY id LIMIT 2;
+
+30. LIKE 
+    When we want to find something like in our table.
+Example: SELECT names from cats WHERE names LIKE "%sam%"
+%% are called as wildcards. 
+LIKE "sa" will mean stricly match with "sa" 
+LIKE "%sa" will mean end by sa
+LIKE "sa%" will mean start by sa
+LIKE ____ (4 underscores) will mean look matches with 4 characters.
+
+31. COUNT(*)
+    Gives the count of the field. Instead of * we can specify a field as well. If used with GROUP BY, it gives count of field stated after GROUP BY.
+
+32. MIN(field)
+    Gives the min from field.
+
+33. MAX(field)
+    Gives the max from field.
+
+34. SUM(field)
+    Gives the sum of field values.
+
+35. AVD(field)
+    Gives the average of values from the field.
+
+36. DATE
+    Gives date in YYYY-MM-DD
+
+37. TIME
+    Gives time in HH:MM:SS
+
+38. DATETIME
+    Gives date and time in YYYY-MM-DD HH:MM:SS.
+
+39. CURDATE()
+    Current date
+
+40. CURTIME()
+    Current time
+
+41. NOW()
+    Current date and time
+
+42. DAYNAME: Weekday
+
+43. DAYOFWEEK: number where 1 is sunday
+
+44. DAYOFYEAR: 1 to 365
+
+45. DATEDIFF(__,__): Difference between two datatypes
+
+46. DATEADD(___ INTERVAL ____)
+
+47. DATESUB(___ INTERVAL ____)
+
+48. TIMESTAMP
+
+49. How to define foreign key:
+    While creating the table, we need to define the foreign key.
+
+    FOREIGN KEY(id) REFERENCE table1(pk)
+
+    {Here id is the Foreign key of our table referenced with primary key of table1}
+
+50. JOINs (Inner or left or right)
+
+SELECT * FROM table1
+    JOIN table2
+        ON table1(pk) = table2(fk)
+
+By default the JOIN is INNER, we can specify RIGHT JOIN or LEFT JOIN as well.
+
+(I'll add more if needed)
+***************************..............................***************************
+
+DATATYPES in MySQL:
+1. VARCHAR(length)                           - Has variable length
+2. CHAR(length)                              - has fixed length and size
+3. INT(11)                                   - Integers. 11 defines the width.
+4. DECIMAL(total_digits , digit_after_point)
+5. FLOAT                                     - Accurate till 7 digits
+6. DOUBLE                                    - Accurate till 15 digits
+
+***************************..............................***************************
+
+LOGICAL OPERATORS IN MySQL:
+1. = 
+2. !=
+3. NOT LIKE
+4. >=
+5. <=
+6. AND
+7. OR
+8. BETWEEN __ AND __
+9. NOT BETWEEN __ AND __
+10. IN
+11. NOT IN
+12. CASE
+        WHEN ____ THEN
+        ELSE
+    END
+13. IFNULL
+***************************..............................***************************
